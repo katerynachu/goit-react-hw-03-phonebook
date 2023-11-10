@@ -6,6 +6,9 @@ import  {ContactForm } from './ContactForm/ContactForm';
 import { GlobalStyle } from './GlobalStyle/Globalstyle';
 import { Titleh1,Titleh2 } from './App.styled';
 
+
+
+const contactsKey = 'contact-key';
 class App extends Component {
   state = {
     contacts: [
@@ -16,8 +19,10 @@ class App extends Component {
     ],
     filter: '',
   };
+
+  
   componentDidMount(){
-    const localConatcts = window.localStorage.getItem('key');
+    const localConatcts = window.localStorage.getItem(contactsKey);
     if(localConatcts !== null){
       this.setState({
         contacts:JSON.parse(localConatcts)
@@ -26,7 +31,7 @@ class App extends Component {
   }
   componentDidUpdate(prevProps,prevState){
     if(prevState.contacts !== this.state.contacts){
-      window.localStorage.setItem('key',JSON.stringify(this.state.contacts))
+      window.localStorage.setItem(contactsKey,JSON.stringify(this.state.contacts))
     }
   }
   updateContactList = (newValues) => {
