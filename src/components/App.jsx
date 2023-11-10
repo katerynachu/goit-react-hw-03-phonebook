@@ -16,7 +16,19 @@ class App extends Component {
     ],
     filter: '',
   };
-  
+  componentDidMount(){
+    const localConatcts = window.localStorage.getItem('key');
+    if(localConatcts !== null){
+      this.setState({
+        contacts:JSON.parse(localConatcts)
+      })
+    }
+  }
+  componentDidUpdate(prevProps,prevState){
+    if(prevState.contacts !== this.state.contacts){
+      window.localStorage.setItem('key',JSON.stringify(this.state.contacts))
+    }
+  }
   updateContactList = (newValues) => {
     if (this.state.contacts.some(contact => contact.name.toLowerCase() === newValues.name.toLowerCase())) {
       alert(`${newValues.name} is already in contacts`);
